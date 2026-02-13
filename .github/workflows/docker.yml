@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build -t waste-backend .
+        run: docker build -t waste-backend ./backend
