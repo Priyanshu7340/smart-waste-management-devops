@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
 
 // POST: Add complaint
 app.post('/complaint', (req, res) => {
-  const { name, location, description } = req.body;
+  const { name, location, type, description } = req.body;
 
-  if (!name || !location || !description) {
+  if (!name || !location || !type || !description) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -23,6 +23,7 @@ app.post('/complaint', (req, res) => {
     id: complaints.length + 1,
     name,
     location,
+    type,
     description,
     status: 'Pending'
   };
@@ -34,6 +35,7 @@ app.post('/complaint', (req, res) => {
     complaint: newComplaint
   });
 });
+
 
 // GET: View all complaints (ADMIN)
 app.get('/complaints', (req, res) => {
