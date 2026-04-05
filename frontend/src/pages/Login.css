@@ -1,0 +1,63 @@
+/* FULL BACKGROUND */
+.login-container {
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1604186838309-c671a4c0cfa4") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* OVERLAY (dark effect) */
+.login-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOGIN BOX */
+.login-box {
+  background: white;
+  padding: 30px;
+  width: 320px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+/* TITLE */
+.login-box h2 {
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background: #218838;
+}

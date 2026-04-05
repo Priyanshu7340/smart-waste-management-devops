@@ -1,0 +1,22 @@
+
+      <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+      <br /><br />
+
+      <input placeholder="Phone" onChange={(e) => setPhone(e.target.value)} />
+      <br /><br />
+
+      <button onClick={sendOtp}>Send OTP</button>
+
+      <br /><br />
+
+      <input placeholder="OTP" onChange={(e) => setOtp(e.target.value)} />
+      <br /><br />
+
+      <button onClick={verifyOtp}>Verify</button>
+
+      <div id="recaptcha-container"></div>
+    </div>
+  );
+};
+
+export default Login;

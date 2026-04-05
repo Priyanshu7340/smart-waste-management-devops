@@ -1,24 +1,67 @@
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Home from "./pages/Home";
-import ComplaintForm from "./pages/ComplaintForm";
+import Login from "./pages/Login";
+import Complaint from "./pages/ComplaintForm";
 import Dashboard from "./pages/Dashboard";
+import History from "./pages/History";
+
+/* 🔐 PROTECTED ROUTE */
+const PrivateRoute = ({ children, roleRequired }) => {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  if (!token) return <Navigate to="/" />;
+  if (roleRequired && role !== roleRequired) return <Navigate to="/" />;
+
+  return children;
+};
 
 function App() {
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/complaint" element={<ComplaintForm />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
+      <Routes>
+
+        {/* PUBLIC */}
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* USER */}
+        <Route
+          path="/complaint"
+          element={
+            <PrivateRoute>
+              <Complaint />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ADMIN */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute roleRequired="admin">
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* HISTORY */}
+        <Route
+          path="/history"
+          element={
+            <PrivateRoute>
+              <History />
+            </PrivateRoute>
+          }
+        />
+
+        {/* FALLBACK */}
+        <Route path="*" element={<Navigate to="/" />} />
+
+      </Routes>
     </Router>
   );
 }
 
 export default App;
-

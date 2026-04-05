@@ -1,0 +1,137 @@
+/* MAIN CONTAINER */
+.dashboard-container {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #1f2d3d;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.sidebar li:hover {
+  background: #34495e;
+}
+
+/* ACTIVE TAB */
+.sidebar .active {
+  background: #007bff;
+}
+
+/* LOGOUT */
+.logout {
+  color: red;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f4f6f9;
+}
+
+/* CARDS */
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* FIXED COLORS (NO FADE ISSUE) */
+.card.total {
+  background: #007bff;
+}
+
+.card.pending {
+  background: #dc3545;
+}
+
+.card.resolved {
+  background: #28a745;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* IMAGE */
+img {
+  width: 80px;
+  border-radius: 6px;
+}
+
+/* MAP */
+iframe {
+  width: 200px;
+  height: 150px;
+  border: none;
+}
+
+/* BUTTONS */
+.resolve-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.resolve-btn:hover {
+  background: #218838;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}
