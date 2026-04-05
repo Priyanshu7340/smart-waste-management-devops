@@ -1,7 +1,7 @@
 /* FULL BACKGROUND */
 .login-container {
   height: 100vh;
-  background: url("https://images.unsplash.com/photo-1604186838309-c671a4c0cfa4") no-repeat center center/cover;
+  background: url("../assets/bg.jpg") no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
