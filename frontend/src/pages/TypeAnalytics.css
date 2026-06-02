@@ -1,0 +1,47 @@
+.type-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("../assets/bg.jpg") no-repeat center center/cover;
+}
+
+/* 🔥 MAIN GRID */
+.type-box {
+  display: flex;
+  gap: 20px;
+
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+
+  width: 90%;
+  max-width: 1100px;
+}
+
+/* LEFT SIDE (TABLE) */
+.table-section {
+  flex: 1;
+}
+
+.table-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* RIGHT SIDE (CHARTS) */
+.chart-section {
+  flex: 1;
+  text-align: center;
+}
+
+.chart-section canvas {
+  margin-top: 20px;
+}

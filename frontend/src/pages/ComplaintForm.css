@@ -3,39 +3,81 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f4f6f9;
+
+  /* Background image + dark overlay */
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("../assets/bg.jpg") no-repeat center center/cover;
 }
 
+/* Glass effect form */
 .form-box {
   width: 400px;
   padding: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+  color: white;
+  text-align: center;
 }
 
+/* Inputs */
 .form-box input,
 .form-box select,
 .form-box textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+
+  border-radius: 8px;
+  border: none;
+  outline: none;
+
+  background: rgba(255,255,255,0.2);
+  color: white;
 }
 
+/* Placeholder color */
+::placeholder {
+  color: #ddd;
+}
+
+/* Dropdown text color fix */
+.form-box select option {
+  color: black;
+}
+
+/* Button */
 .form-box button {
   width: 100%;
   padding: 12px;
-  background: #28a745;
+  margin-top: 10px;
+
+  background: linear-gradient(45deg, #28a745, #4CAF50);
   color: white;
+
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  font-size: 16px;
+  transition: 0.3s;
 }
 
+.form-box button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #218838, #388E3C);
+}
+
+/* GPS box */
 .gps-box {
-  background: #eee;
+  background: rgba(255,255,255,0.2);
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   margin: 10px 0;
+
+  color: white;
 }

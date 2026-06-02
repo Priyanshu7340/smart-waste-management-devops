@@ -1,0 +1,37 @@
+.analytics-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("../assets/bg.jpg") no-repeat center center/cover;
+}
+
+.analytics-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+
+  text-align: center;
+  width: 400px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.analytics-title {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.analytics-subtitle {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.analytics-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #28a745;
+}

@@ -1,0 +1,45 @@
+.role-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+               url("../assets/bg.jpg") no-repeat center center/cover;
+}
+
+.role-box {
+  padding: 40px;
+  border-radius: 15px;
+
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+
+  text-align: center;
+  color: white;
+}
+
+.role-box h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.role-box button {
+  width: 200px;
+  padding: 12px;
+  margin: 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(45deg, #28a745, #4CAF50);
+  color: white;
+
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.role-box button:hover {
+  transform: scale(1.05);
+}

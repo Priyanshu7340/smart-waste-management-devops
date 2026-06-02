@@ -43,6 +43,7 @@ const complaintSchema = new mongoose.Schema({
   latitude: String,
   longitude: String,
   time: { type: Date, default: Date.now },
+  resolvedAt: Date // 🔥 NEW (for research later)
 });
 const Complaint = mongoose.model("Complaint", complaintSchema);
 
@@ -57,14 +58,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* ================= AUTH MIDDLEWARE ================= */
+/* ================= AUTH ================= */
 const auth = (req, res, next) => {
   const authHeader = req.headers.authorization;
-
   if (!authHeader) return res.status(401).json({ message: "No token" });
 
   try {
-    const token = authHeader.split(" ")[1]; // ✅ Bearer fix
+    const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, SECRET);
     req.user = decoded;
     next();
@@ -94,7 +94,6 @@ app.post("/register", async (req, res) => {
   });
 
   await user.save();
-
   res.json({ message: "User Registered" });
 });
 
@@ -117,7 +116,7 @@ app.post("/login", async (req, res) => {
   res.json({ token, role: user.role });
 });
 
-/* ===== GET COMPLAINTS (ADMIN ONLY) ===== */
+/* ===== GET ALL COMPLAINTS (ADMIN) ===== */
 app.get("/complaints", auth, async (req, res) => {
   if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Access denied" });
@@ -143,7 +142,22 @@ app.post("/complaints", upload.single("image"), async (req, res) => {
 
   await newComplaint.save();
 
-  res.json({ message: "Complaint Saved" });
+  res.json({ message: "Complaint Saved", id: newComplaint._id }); // 🔥 return ID
+});
+
+/* ===== GET SINGLE COMPLAINT (TRACKING) ===== */
+app.get("/complaints/:id", async (req, res) => {
+  try {
+    const complaint = await Complaint.findById(req.params.id);
+
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    res.json(complaint);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching complaint" });
+  }
 });
 
 /* ===== UPDATE STATUS ===== */
@@ -152,9 +166,13 @@ app.put("/complaints/:id", auth, async (req, res) => {
     return res.status(403).json({ message: "Access denied" });
   }
 
-  await Complaint.findByIdAndUpdate(req.params.id, {
-    status: req.body.status,
-  });
+  const updateData = { status: req.body.status };
+
+  if (req.body.status === "Resolved") {
+    updateData.resolvedAt = new Date(); // 🔥 important
+  }
+
+  await Complaint.findByIdAndUpdate(req.params.id, updateData);
 
   res.json({ message: "Updated" });
 });
@@ -173,4 +191,78 @@ app.delete("/complaints/:id", auth, async (req, res) => {
 /* ================= START ================= */
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+/* ===== AVG RESOLUTION TIME (RESEARCH) ===== */
+app.get("/analytics/avg-time", async (req, res) => {
+  try {
+    const complaints = await Complaint.find({
+      status: "Resolved",
+      resolvedAt: { $ne: null },
+    });
+
+    if (complaints.length === 0) {
+      return res.json({ avgTime: 0 });
+    }
+
+    let totalTime = 0;
+
+    complaints.forEach(c => {
+      const diff = new Date(c.resolvedAt) - new Date(c.time);
+      totalTime += diff;
+    });
+
+    const avgTimeMs = totalTime / complaints.length;
+
+    const avgHours = avgTimeMs / (1000 * 60 * 60);
+
+    res.json({ avgTime: avgHours.toFixed(2) });
+
+  } catch (err) {
+    res.status(500).json({ message: "Error calculating average time" });
+  }
+});
+
+/* ===== TYPE-WISE ANALYSIS ===== */
+app.get("/analytics/type-wise", async (req, res) => {
+  try {
+    const data = await Complaint.aggregate([
+      {
+        $group: {
+          _id: "$type",
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { count: -1 } // 🔥 highest first
+      }
+    ]);
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching type data" });
+  }
+});
+
+/* ===== DAILY TREND ANALYSIS ===== */
+app.get("/analytics/trend", async (req, res) => {
+  try {
+    const data = await Complaint.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: "%Y-%m-%d", date: "$time" }
+          },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { _id: 1 } // ascending order (date wise)
+      }
+    ]);
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching trend data" });
+  }
 });

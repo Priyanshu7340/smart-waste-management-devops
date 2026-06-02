@@ -1,23 +1,34 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./RoleSelect.css";
 
 const RoleSelect = () => {
+  const navigate = useNavigate();
 
   const selectRole = (role) => {
     localStorage.setItem("role", role);
-    window.location.href = "/login";
+
+    if (role === "user") {
+      navigate("/complaint");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "100px" }}>
-      <h2>Who are you?</h2>
+    <div className="role-container">
+      <div className="role-box">
+        <h2>Smart Waste Management</h2>
+        <p>Select your role</p>
 
-      <button onClick={() => selectRole("user")} style={{ margin: "10px" }}>
-        User / Complaint
-      </button>
+        <button onClick={() => selectRole("user")}>
+          User / Complaint
+        </button>
 
-      <button onClick={() => selectRole("admin")} style={{ margin: "10px" }}>
-        Admin
-      </button>
+        <button onClick={() => selectRole("admin")}>
+          Admin
+        </button>
+      </div>
     </div>
   );
 };

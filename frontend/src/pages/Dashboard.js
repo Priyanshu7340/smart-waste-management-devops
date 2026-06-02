@@ -121,6 +121,65 @@ const Dashboard = () => {
       <div className="main-content">
         <h2>Admin Dashboard</h2>
 
+        {/* 🔥 NEW BUTTON */}
+
+<button
+  onClick={() => window.location.href="/heatmap"}
+  style={{
+    marginLeft: "10px",
+    padding: "10px",
+    background: "#ff5733",
+    color: "white",
+    border: "none",
+    borderRadius: "6px"
+  }}
+>
+  Heatmap
+</button>
+
+<button
+  onClick={() => window.location.href="/trend"}
+  style={{
+    marginLeft: "10px",
+    padding: "10px",
+    background: "#6f42c1",
+    color: "white",
+    border: "none",
+    borderRadius: "6px"
+  }}
+>
+  Trend Analysis
+</button>
+
+<button
+  onClick={() => window.location.href = "/analytics"}
+  style={{
+    marginBottom: "20px",
+    padding: "10px 15px",
+    background: "#007bff",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  }}
+>
+  View Analytics
+</button>
+
+<button
+  onClick={() => window.location.href="/type-analytics"}
+  style={{
+    marginLeft: "10px",
+    padding: "10px",
+    background: "green",
+    color: "white",
+    border: "none",
+    borderRadius: "6px"
+  }}
+>
+  Type Analysis
+</button>  
+
         {/* CARDS */}
         <div className="dashboard-cards">
           <div className="card total">Total <br /> {total}</div>
